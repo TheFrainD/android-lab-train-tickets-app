@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Train Tickets</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="departure_time">Departure time:</string>
+    <string name="ok">OK</string>
+    <string name="origin_not_selected">Origin is not selected</string>
+    <string name="destination_not_selected">Destination is not selected</string>
+    <string name="departure_not_selected">Departure time is not selected</string>
+    <string name="your_ticket">Your ticket</string>
+    <string name="from_ticket">From:</string>
+    <string name="to_ticket">To:</string>
+    <string name="departure_ticket">Departure:</string>
+</resources>
