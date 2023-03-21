@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<SelectionFragment>(R.id.fragmentContainerView)
+                add<MainFragment>(R.id.fragment_view)
             }
         }
 

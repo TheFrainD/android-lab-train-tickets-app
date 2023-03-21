@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import com.example.traintickets.databinding.FragmentSelectionBinding
+import com.example.traintickets.databinding.FragmentMainBinding
 
-class SelectionFragment : Fragment() {
+class MainFragment : Fragment() {
 
-    private var _binding: FragmentSelectionBinding? = null
+    private var _binding: FragmentMainBinding? = null
 
     private val binding get() = _binding!!
 
@@ -37,7 +37,7 @@ class SelectionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSelectionBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
