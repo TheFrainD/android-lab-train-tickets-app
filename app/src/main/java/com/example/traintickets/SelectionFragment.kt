@@ -5,27 +5,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import com.example.traintickets.databinding.FragmentSelectionBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SelectionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SelectionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding: FragmentSelectionBinding? = null
+
+    private val binding get() = _binding!!
+
+    private val departureTimes = Array(24) { i -> "%2d:00".format(i) }
+    private var selectedId: Int? = null
+    private var arrayAdapter: ArrayAdapter<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+        arrayAdapter = this.context?.let {
+            ArrayAdapter(
+                it,
+                android.R.layout.simple_spinner_item,
+                departureTimes
+            )
         }
     }
 
@@ -33,27 +36,59 @@ class SelectionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_selection, container, false)
+
+        _binding = FragmentSelectionBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SelectionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SelectionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        with(binding.spDepartureTime) {
+            adapter = arrayAdapter
+
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    pos: Int,
+                    id: Long
+                ) {
+                    selectedId = pos
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    selectedId = null
                 }
             }
+        }
+
+        binding.btnOk.setOnClickListener {
+            if (binding.etOrigin.text.isNullOrEmpty()) {
+                toastError(getString(R.string.origin_not_selected))
+            } else if (binding.etDestination.text.isNullOrEmpty()) {
+                toastError(getString(R.string.destination_not_selected))
+            } else if (selectedId == null) {
+                toastError(getString(R.string.departure_not_selected))
+            } else {
+                printTicket()
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun toastError(msg: String) {
+        Toast.makeText(this.context, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun printTicket() {
+        binding.clTicket.visibility = View.VISIBLE
+        binding.tvTicketOrigin.text = binding.etOrigin.text
+        binding.tvTicketDestination.text = binding.etDestination.text
+        binding.tvTicketTime.text = departureTimes[selectedId!!]
     }
 }
