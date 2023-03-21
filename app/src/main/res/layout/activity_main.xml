@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/origin_input_layout"
+        android:id="@+id/textInputLayoutOrigin"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,13 +25,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/destination_input_layout"
+        android:id="@+id/textInputLayoutDestination"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="@string/to"
-        app:layout_constraintTop_toBottomOf="@+id/origin_input_layout"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutOrigin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/departure_time"
-        app:layout_constraintTop_toBottomOf="@+id/destination_input_layout"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDestination"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
@@ -58,7 +58,7 @@
         android:layout_margin="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/text_view_departure"
-        app:layout_constraintTop_toBottomOf="@+id/destination_input_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutDestination" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ticket_layout"
