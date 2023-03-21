@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.traintickets.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -71,7 +72,7 @@ class MainFragment : Fragment() {
             } else if (selectedId == null) {
                 toastError(getString(R.string.departure_not_selected))
             } else {
-                printTicket()
+                findNavController().navigate(R.id.action_mainFragment_to_viewTicketFragment)
             }
         }
     }
