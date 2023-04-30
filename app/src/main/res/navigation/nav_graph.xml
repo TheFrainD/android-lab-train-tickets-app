@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_viewTicketFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="ticket"
+            app:argType="com.example.traintickets.Ticket" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"

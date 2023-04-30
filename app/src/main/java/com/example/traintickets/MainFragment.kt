@@ -72,7 +72,14 @@ class MainFragment : Fragment() {
             } else if (selectedId == null) {
                 toastError(getString(R.string.departure_not_selected))
             } else {
-                findNavController().navigate(R.id.action_mainFragment_to_viewTicketFragment)
+                val ticket = Ticket(
+                    binding.etOrigin.text?.toString(),
+                    binding.etDestination.text?.toString(),
+                    departureTimes[selectedId!!]
+                )
+
+                val action = MainFragmentDirections.actionMainFragmentToViewTicketFragment(ticket)
+                findNavController().navigate(action)
             }
         }
     }
@@ -84,12 +91,5 @@ class MainFragment : Fragment() {
 
     private fun toastError(msg: String) {
         Toast.makeText(this.context, msg, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun printTicket() {
-        binding.clTicket.visibility = View.VISIBLE
-        binding.tvTicketOrigin.text = binding.etOrigin.text
-        binding.tvTicketDestination.text = binding.etDestination.text
-        binding.tvTicketTime.text = departureTimes[selectedId!!]
     }
 }
