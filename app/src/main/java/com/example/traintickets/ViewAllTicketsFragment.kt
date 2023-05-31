@@ -6,16 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.example.traintickets.databinding.FragmentViewTicketBinding
+import com.example.traintickets.databinding.FragmentViewAllTicketsBinding
 
+class ViewAllTicketsFragment : Fragment() {
 
-class ViewTicketFragment : Fragment() {
-
-    private var _binding: FragmentViewTicketBinding? = null
+    private var _binding: FragmentViewAllTicketsBinding? = null
     private val binding get() = _binding!!
-
-    private val args: ViewTicketFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,11 +21,7 @@ class ViewTicketFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentViewTicketBinding.inflate(inflater, container, false)
-
-        binding.textViewTicketOrigin.text = args.ticket.origin
-        binding.textViewTicketDestination.text = args.ticket.destination
-        binding.textViewTicketTime.text = args.ticket.departure
+        _binding = FragmentViewAllTicketsBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -38,7 +30,7 @@ class ViewTicketFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnReturn.setOnClickListener {
-            val action = ViewTicketFragmentDirections.actionViewTicketFragmentToMainFragment()
+            val action = ViewAllTicketsFragmentDirections.actionViewAllTicketsFragmentToMainFragment()
             findNavController().navigate(action)
         }
     }

@@ -82,6 +82,11 @@ class MainFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+
+        binding.btnOpen.setOnClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToViewAllTicketsFragment()
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {

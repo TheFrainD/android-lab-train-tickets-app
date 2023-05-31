@@ -25,5 +25,16 @@
         <action
             android:id="@+id/action_mainFragment_to_viewTicketFragment"
             app:destination="@id/viewTicketFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_viewAllTicketsFragment"
+            app:destination="@id/viewAllTicketsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewAllTicketsFragment"
+        android:name="com.example.traintickets.ViewAllTicketsFragment"
+        android:label="ViewAllTicketsFragment" >
+        <action
+            android:id="@+id/action_viewAllTicketsFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>
