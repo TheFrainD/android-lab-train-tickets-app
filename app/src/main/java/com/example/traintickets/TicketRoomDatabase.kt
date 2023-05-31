@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [TicketEntity::class], version = 1, exportSchema = false)
+@Database(entities = [TicketEntity::class], version = 2, exportSchema = false)
 public abstract class TicketRoomDatabase : RoomDatabase() {
 
     abstract fun ticketDao(): TicketDao
@@ -20,7 +20,7 @@ public abstract class TicketRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     TicketRoomDatabase::class.java,
                     "ticket_database"
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

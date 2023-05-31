@@ -4,6 +4,14 @@ import android.app.Application
 
 class TicketApplication : Application() {
 
-    private val database by lazy { TicketRoomDatabase.getDatabase(this) }
-    val repository by lazy { TicketRepository(database.ticketDao()) }
+    companion object {
+        var database: TicketRoomDatabase? = null
+        var repository: TicketRepository? = null
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        database = TicketRoomDatabase.getDatabase(this)
+        repository = TicketRepository(database!!.ticketDao())
+    }
 }

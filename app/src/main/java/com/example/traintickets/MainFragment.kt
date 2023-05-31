@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.traintickets.databinding.FragmentMainBinding
 
@@ -20,6 +21,10 @@ class MainFragment : Fragment() {
     private val departureTimes = Array(24) { i -> "%2d:00".format(i) }
     private var selectedId: Int? = null
     private var arrayAdapter: ArrayAdapter<String>? = null
+
+    private val ticketViewModel: TicketViewModel by activityViewModels {
+        TicketViewModelFactory(TicketApplication.repository!!)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,14 +83,24 @@ class MainFragment : Fragment() {
                     departureTimes[selectedId!!]
                 )
 
+                ticketViewModel.insert(TicketEntity(
+                    ticket.origin!!, ticket.destination!!, ticket.departure!!
+                ))
+
+                Toast.makeText(this.context, "Ticket added to the database!", Toast.LENGTH_SHORT).show()
+
                 val action = MainFragmentDirections.actionMainFragmentToViewTicketFragment(ticket)
                 findNavController().navigate(action)
             }
         }
 
         binding.btnOpen.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToViewAllTicketsFragment()
-            findNavController().navigate(action)
+            if (ticketViewModel.allTickets.value?.size != 0) {
+                val action = MainFragmentDirections.actionMainFragmentToViewAllTicketsFragment()
+                findNavController().navigate(action)
+            } else {
+                toastError("Ticket data base is empty!")
+            }
         }
     }
 

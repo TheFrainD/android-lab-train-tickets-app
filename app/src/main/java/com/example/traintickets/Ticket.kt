@@ -15,8 +15,8 @@ data class Ticket(
 
 @Entity(tableName = "ticket_table")
 class TicketEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "origin") val origin: String,
     @ColumnInfo(name = "destination") val destination: String,
-    @ColumnInfo(name = "departure") val departure: String
+    @ColumnInfo(name = "departure") val departure: String,
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
 )
