@@ -95,11 +95,12 @@ class MainFragment : Fragment() {
         }
 
         binding.btnOpen.setOnClickListener {
-            if (ticketViewModel.allTickets.value?.size != 0) {
+            if (ticketViewModel.allTickets.value?.size == null) {
+                toastError("Ticket data base is empty!")
+
+            } else {
                 val action = MainFragmentDirections.actionMainFragmentToViewAllTicketsFragment()
                 findNavController().navigate(action)
-            } else {
-                toastError("Ticket data base is empty!")
             }
         }
     }
